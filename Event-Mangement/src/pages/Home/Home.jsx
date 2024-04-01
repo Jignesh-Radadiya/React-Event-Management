@@ -1,11 +1,14 @@
 import Navigation from "../../components/Navigation/Navigation.jsx";
+
 // import "./Home.css";
 const Home = () => {
     
     return (
       <div className="flex flex-col">
     <Navigation/>
-    <div className="mt-[90px]"> 
+
+    <div className="mt-[90px] mb-[90px]"> 
+   
         <div className="h-full w-full p-[20px] bg-transparent bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('./image/Rectangle 7.png')" }}>
             {/* <p className="mt-4 text-white text-25 ml-10">Explore More</p> */}
             <a href="/EventList">
@@ -47,7 +50,7 @@ const Home = () => {
                 <img src="./image/10.jpg" className="w-full rounded-lg mt-2" alt="image"/>
                 <img src="./image/14.jpg" className="w-full rounded-lg mt-2" alt="image"/>
                 <img src="./image/12.jpg" className="w-full rounded-lg mt-2" alt="image"/>
-                <img src="./image/16.jpg" className="w-full rounded-lg" alt="image"/>
+                <img src="./image/16.jpg" className="w-full h-[450px] mt-2 rounded-lg" alt="image"/>
             </div>
         </div>
     </div>
