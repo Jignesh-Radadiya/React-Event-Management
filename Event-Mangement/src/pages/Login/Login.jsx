@@ -3,20 +3,22 @@ import { useState,useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+
 // import {Link} from "react-router-dom"
 // import "./login.css";
 
 const Login = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track user login status
   const navigate = useNavigate(); // Use useNavigate hook for navigation
 
   useEffect(() => {
-    const auth = localStorage.getItem('token'); // Check for some authentication token
+    const auth = localStorage.getItem('token');
     if (auth) {
-      navigate('/'); // If token exists, redirect to home
+      navigate('/');
     }
-  }, []); // Run only once when component mounts
+  }); // Run only once when component mounts
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,33 +29,33 @@ const Login = () =>{
       });
 
       if (response.status === 200) {
-        // Store authentication token in local storage upon successful login
         localStorage.setItem('token', response.data.token);
+        setIsLoggedIn(true); // Set isLoggedIn to true upon successful login
+
 
         if (response.data.isAdmin) {
-          // Redirect to the admin panel
           navigate('/admin');
         } else {
-          // Redirect to regular user page
           navigate('/');
         }
+      
       } else {
         console.error('Login failed:', response.data.message);
-        // Render error message directly in UI
-        alert('Login failed. Please try again.');
+        alert(response.data.message);
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      // Render error message directly in UI
       alert('Error logging in. Please try again.');
     }
   };
-    
+
+
+
     return (
       <div className="w-full h-auto flex flex-col ">
 
-      <Navigation />
-        <div className="w-[700px] flex flex-col justify-center items-center mt-[140px] mb-[60px]">
+<Navigation isLoggedIn={isLoggedIn} /> 
+        <div className="w-[700px] flex flex-col justify-center items-center mt-[110px] mb-[60px]">
           <div className="flex items-center">
             <div className="flex-1">
               <img src="./image/Logo1.png" alt="Side Image" className="w-full h-auto flex-1" />
@@ -81,7 +83,7 @@ const Login = () =>{
                 <div className="text-center mb-[20px]">
                   <label className="text-white hover:underline" >New to us? <a href="/Signup" className="text-blue-500 hover:bg-white">Sign Up</a></label>
                 </div>
-                <button type="submit" onClick={handleLogin} className="inline-block py-[10px] px-[20px] mt-[40px] text-blue-500 text-lg uppercase overflow-hidden 
+                <button type="submit" className="inline-block py-[10px] px-[20px] mt-[40px] text-blue-500 text-lg uppercase overflow-hidden 
                 transition duration-500 ease-in-out bg-black tracking-[4px] shadow-[0_0_5px_#e8f403,0_0_25px_#03e9f4,0_0_50px_#03e9f4,0_0_100px_#03e9f4]
                 hover:text-white rounded-md">
                  
@@ -89,7 +91,8 @@ const Login = () =>{
                 </button>
 
               </form>
-              
+         
+
             </div>
           </div>
         </div>

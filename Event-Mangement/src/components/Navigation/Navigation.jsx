@@ -8,7 +8,7 @@ const Navigation = ()=>{
   return (
     <>
     <div>
-    <nav className="w-full h-20 bg-gradient-to-b from-white to-green-200 fixed">
+    <nav className="w-full h-[90px] bg-gradient-to-b from-white to-green-200 fixed">
     <ul className="h-full flex justify-end items-center gap-[36px] list-none p-0 mr-7 border-b-0.4 border-black">
     <li>
     <img className="rounded-md p-1 h-24 absolute left-5 top-2/4 transform -translate-y-2/4" src="./image/Logo1.png"/>
@@ -38,9 +38,9 @@ const Navigation = ()=>{
     <li>
       <Link to="/Logout" className="button1 bg-red-500 border-none rounded-[10px] text-white py-4 px-8 text-center text-base inline-block cursor-pointer">Logout</Link>
     </li>
-    <li>
+    {/* <li>
       <Link to="/Admin" className="text-lg font-semibold">Admin</Link>
-    </li>
+    </li> */}
   </ul>
 </nav>
 

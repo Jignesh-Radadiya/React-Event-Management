@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navigation from "../../components/Navigation/Navigation.jsx";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Services = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -22,6 +23,15 @@ const Services = () => {
     fetchEvents();
   }, []);
 
+  const handleBooking = () => {
+    const auth = localStorage.getItem('token');
+    if (auth) {
+      navigate('/Booking');
+    } else {
+      navigate('/Login');
+    }
+  };
+
   return (
     <>
       <Navigation />
@@ -30,11 +40,11 @@ const Services = () => {
           <label className="text-lg font-semibold text-gray-700 mb-4 md:mb-0 mr-0 md:mr-4">
             If you want to book any event directly, click the button below:
           </label>
-          <Link to="/Booking">
-            <button className="w-full md:w-auto py-2 px-4 font-semibold text-white bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800">
-              Book Events
-            </button>
-          </Link>
+          {/* <Link to="/Booking"> */}
+          <button onClick={handleBooking} className="w-full md:w-auto py-2 px-4 font-semibold text-white bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800">
+            Book Events
+          </button>
+          {/* </Link> */}
         </div>
         {loading ? (
           <div>Loading...</div>

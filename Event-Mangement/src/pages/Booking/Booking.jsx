@@ -1,4 +1,5 @@
 import Navigation from "../../components/Navigation/Navigation.jsx";
+import PropTypes from 'prop-types'; // Import PropTypes
 
 import { useState } from "react";
 
@@ -25,24 +26,49 @@ const Booking = () => {
       });
       const data = await response.json();
       console.log("Server response:", data);
-      setSuccessMessage("Booking Successful!");
-      setTimeout(() => {
-        setSuccessMessage("");
+      if (response.ok) {
+        setSuccessMessage("Booking Successful!");
         // Clear form fields after successful submission
-        setName("");
-        setEmail("");
-        setMobile("");
-        setEventName("");
-        setDate("");
-        setTime(""); 
-        setEventPlace("");
-      }, );
+        clearFormFields();
+        // Set timeout to clear success message after 3 seconds
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 1000);
+      } else {
+        console.error("Booking failed:", data);
+      }
     } catch (error) {
       console.error("Error:", error);
       // Handle error
     }
   };
-    
+
+  const clearFormFields = () => {
+    setName("");
+    setEmail("");
+    setMobile("");
+    setEventName("");
+    setDate("");
+    setTime("");
+    setEventPlace("");
+  };
+
+  const FullPageMessage = ({ message }) => {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center">
+        <div className="bg-black bg-opacity-50 text-white text-4xl p-8 rounded-lg">
+          {message}
+        </div>
+      </div>
+    );
+  };
+
+  // Prop validation for FullPageMessage component
+  FullPageMessage.propTypes = {
+    message: PropTypes.string.isRequired, // Validate message prop as a required string
+  };
+
+  
     return (
       <div>
         <Navigation/>
@@ -94,7 +120,7 @@ const Booking = () => {
            
           </div>
           </form>
-          {successMessage && <div className="text-green-500">{successMessage}</div>}
+          {successMessage && <FullPageMessage message={successMessage} />}
 
           </div>
           </div>
@@ -102,6 +128,21 @@ const Booking = () => {
  
           
     );
+  };
+
+  const FullPageMessage = ({ message }) => {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center">
+        <div className="bg-black bg-opacity-50 text-white text-4xl p-8 rounded-lg">
+          {message}
+        </div>
+      </div>
+    );
+  };
+  
+  // Prop validation for FullPageMessage component
+  FullPageMessage.propTypes = {
+    message: PropTypes.string.isRequired, // Validate message prop as a required string
   };
   export default Booking;
   
